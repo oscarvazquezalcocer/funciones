@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Puesto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        select {
+            appearance: none;
+            
+            background-size: 20px;
+        }
+        input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        .delete-button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <h1>Editar Puesto</h1>
+    <form action="/{{ .puesto.ID }}/update" method="post">
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" value="{{ .puesto.Nombre }}" required><br>
+        
+        <label for="descripcion">Descripción:</label><br>
+        <textarea id="descripcion" name="descripcion" rows="4" cols="50" required>{{ .puesto.Descripcion }}</textarea><br>
+        
+        <label for="id_puesto">Puesto:</label><br>
+        <select id="id_jefe" name="id_jefe" required>
+            {{ if eq .puesto.ID 1 }}
+            <option value="0" selected>No tiene Jefe</option>
+            {{ else }}
+                {{ range .jefes }}
+                <option value="{{ .ID }}">{{ .Nombre }}</option>
+                {{ end }}
+            {{ end }}
+        </select><br>
+
+        <input type="submit" value="Actualizar Puesto">
+    </form>
+        <form action="/{{ .puesto.ID }}/delete" method="post">
+            <input  type="hidden" name="_method" value="DELETE">
+            <button class="delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar este puesto?')">Eliminar Puesto</button>
+        </form>
+</body>
+</html>

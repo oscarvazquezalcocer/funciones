@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Árbol de Puestos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+            position: relative;
+        }
+        li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .node-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 50%;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+        .tree-node {
+            margin-left: 20px;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <h1>Árbol de Puestos</h1>
+    <ul>
+        {{ range .tree }}
+            {{ template "treeNode" . }}
+        {{ end }}
+    </ul>
+
+    {{ define "treeNode" }}
+        <li>
+            <span class="node-icon">{{ .Puesto.ID }}</span> {{ .Puesto.Nombre }}
+        </li>
+        {{ if .Subordinados }}
+            <ul class="tree-node">
+                {{ range .Subordinados }}
+                    {{ template "treeNode" . }}
+                {{ end }}
+            </ul>
+        {{ end }}
+    {{ end }}
+</body>
+</html>
