@@ -17,10 +17,10 @@ func ListPuestos(c *gin.Context) {
 
 	var nombresJefes = make(map[uint]string)
 	for _, puesto := range puestos {
-		if puesto.ID_Jefe != 0 {
+		if puesto.IDJefe != 0 {
 			var puestoPadre models.Puesto
-			db.First(&puestoPadre, puesto.ID_Jefe)
-			nombresJefes[puesto.ID_Jefe] = puestoPadre.Nombre
+			db.First(&puestoPadre, puesto.IDJefe)
+			nombresJefes[puesto.IDJefe] = puestoPadre.Nombre
 		}
 	}
 
@@ -46,9 +46,9 @@ func CreatePuesto(c *gin.Context) {
 	}
 
 	// Checamos que el puesto que se reciba sea valido
-	if newPuesto.ID_Jefe != 0 {
+	if newPuesto.IDJefe != 0 {
 		var parent models.Puesto
-		result := db.First(&parent, newPuesto.ID_Jefe)
+		result := db.First(&parent, newPuesto.IDJefe)
 		if result.Error != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "ParentID no válido"})
 			return

@@ -40,7 +40,8 @@ func main() {
 	r.LoadHTMLGlob("templates/*")
 
 	r.Use(DatabaseMiddleware())
-	routes.AddRoutes(r)
+	routes.AddWEBRoutes(r)
+	routes.AddAPIRoutes(r)
 
 	r.Run()
 }
@@ -51,7 +52,7 @@ func initSquemaPuestos(db *gorm.DB) {
 	rootPuesto := models.Puesto{
 		Nombre:      "Director",
 		Descripcion: "Encargado de Adminisitrar el Instituto Tecnologico Nacional Campus Valladolid",
-		ID_Jefe:     0,
+		IDJefe:      0,
 	}
 
 	db.Create(&rootPuesto)
