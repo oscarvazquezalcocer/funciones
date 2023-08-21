@@ -10,7 +10,7 @@ func AddAPI(r *gin.Engine) {
 
 	apiGroup := r.Group("/api")
 	{
-		apiGroup.GET("/", handlers.PuestoUserAssociation)
+		apiGroup.GET("/", handlers.ListAPIPuestos)
 
 	}
 

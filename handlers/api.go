@@ -1,15 +1,17 @@
 package handlers
 
 import (
-	"itsva-puestos/utils"
+	"itsva-puestos/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func PuestoUserAssociation(c *gin.Context) {
+func ListAPIPuestos(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var puestos []models.Puesto
+	db.Find(&puestos)
 
-	token := utils.GenerateToken()
-
-	c.JSON(http.StatusOK, token)
+	c.JSON(http.StatusOK, gin.H{"puestos": puestos})
 }

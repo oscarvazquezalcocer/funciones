@@ -35,7 +35,9 @@ func main() {
 	// Realizar las migraciones antes de iniciar el servidor
 	db.AutoMigrate(&models.Puesto{})
 
+	//Agregamos al Director antes que nada
 	initSquemaPuestos(db)
+
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
 
@@ -43,7 +45,7 @@ func main() {
 	routes.AddWEB(r)
 	routes.AddAPI(r)
 
-	r.Run()
+	r.Run(":8082")
 }
 
 func initSquemaPuestos(db *gorm.DB) {
