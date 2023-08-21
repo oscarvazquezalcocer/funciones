@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AddWEBRoutes(r *gin.Engine) {
+func AddWEB(r *gin.Engine) {
 
 	r.GET("/", handlers.ListPuestos)
 	r.GET("/create", handlers.ShowFormPuesto)

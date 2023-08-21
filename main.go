@@ -40,8 +40,8 @@ func main() {
 	r.LoadHTMLGlob("templates/*")
 
 	r.Use(DatabaseMiddleware())
-	routes.AddWEBRoutes(r)
-	routes.AddAPIRoutes(r)
+	routes.AddWEB(r)
+	routes.AddAPI(r)
 
 	r.Run()
 }

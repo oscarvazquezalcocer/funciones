@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AddAPIRoutes(r *gin.Engine) {
+func AddAPI(r *gin.Engine) {
 
 	apiGroup := r.Group("/api")
 	{
