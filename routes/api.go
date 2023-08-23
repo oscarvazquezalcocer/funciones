@@ -8,9 +8,10 @@ import (
 
 func AddAPI(r *gin.Engine) {
 
-	apiGroup := r.Group("/api")
+	api := r.Group("/api")
 	{
-		apiGroup.GET("/", handlers.ListAPIPuestos)
+		api.GET("/", handlers.ListAPI)
+		api.GET("/:id", handlers.ShowAPI)
 
 	}
 

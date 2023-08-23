@@ -8,12 +8,12 @@ import (
 
 func AddWEB(r *gin.Engine) {
 
-	r.GET("/", handlers.ListPuestos)
-	r.GET("/create", handlers.ShowFormPuesto)
-	r.POST("/create", handlers.CreatePuesto)
-	r.GET("/:id", handlers.ViewPuesto)
-	r.POST("/:id/update", handlers.UpdatePuesto)
-	r.POST("/:id/delete", handlers.DeletePuesto)
+	r.GET("/", handlers.List)
+	r.GET("/create", handlers.ShowForm)
+	r.POST("/create", handlers.Create)
+	r.GET("/:id", handlers.Show)
+	r.POST("/:id/update", handlers.Update)
+	r.POST("/:id/delete", handlers.Delete)
 	r.GET("/tree", handlers.TreeView)
 
 }

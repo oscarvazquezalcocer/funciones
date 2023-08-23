@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"itsva-puestos/models"
 	"itsva-puestos/utils"
 
@@ -10,7 +11,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func ListPuestos(c *gin.Context) {
+func List(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var puestos []models.Puesto
 	db.Find(&puestos)
@@ -24,10 +25,11 @@ func ListPuestos(c *gin.Context) {
 		}
 	}
 
+	fmt.Println(puestos)
 	c.HTML(http.StatusOK, "list.html", gin.H{"puestos": puestos, "nombresJefes": nombresJefes})
 }
 
-func ShowFormPuesto(c *gin.Context) {
+func ShowForm(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var jefes []models.Puesto
 	db.Find(&jefes)
@@ -36,7 +38,7 @@ func ShowFormPuesto(c *gin.Context) {
 
 }
 
-func CreatePuesto(c *gin.Context) {
+func Create(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 
 	var newPuesto models.Puesto
@@ -64,7 +66,7 @@ func CreatePuesto(c *gin.Context) {
 	c.Redirect(http.StatusSeeOther, "/")
 }
 
-func ViewPuesto(c *gin.Context) {
+func Show(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
 	var puesto models.Puesto
@@ -87,7 +89,7 @@ func ViewPuesto(c *gin.Context) {
 	c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puesto, "jefes": jefes})
 }
 
-func UpdatePuesto(c *gin.Context) {
+func Update(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
 	var puesto models.Puesto
@@ -104,7 +106,7 @@ func UpdatePuesto(c *gin.Context) {
 	c.Redirect(http.StatusSeeOther, "/")
 }
 
-func DeletePuesto(c *gin.Context) {
+func Delete(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
 	var puesto models.Puesto

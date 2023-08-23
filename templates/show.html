@@ -86,9 +86,9 @@
 
         <input type="submit" value="Actualizar Puesto">
     </form>
-        <form action="/{{ .puesto.ID }}/delete" method="post">
-            <input  type="hidden" name="_method" value="DELETE">
-            <button class="delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar este puesto?')">Eliminar Puesto</button>
-        </form>
+    <form action="/{{ .puesto.ID }}/delete" method="post">
+        <input  type="hidden" name="_method" value="DELETE">
+        <button class="delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar este puesto?')">Eliminar Puesto</button>
+    </form>
 </body>
 </html>
