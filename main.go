@@ -6,13 +6,14 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 func DatabaseMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		db, err := gorm.Open(sqlite.Open("puestos.sqlite"), &gorm.Config{})
+		db, err := gorm.Open(sqlite.Open(viper.GetString("db")), &gorm.Config{})
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error en la conexion a la base de datos"})
@@ -27,7 +28,7 @@ func DatabaseMiddleware() gin.HandlerFunc {
 }
 
 func main() {
-	db, err := gorm.Open(sqlite.Open("puestos.sqlite"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(viper.GetString("db")), &gorm.Config{})
 	if err != nil {
 		panic("Error conexión a la base de datos")
 	}
@@ -45,7 +46,7 @@ func main() {
 	routes.AddWEB(r)
 	routes.AddAPI(r)
 
-	r.Run(":8082")
+	r.Run(viper.GetString("PORT"))
 }
 
 func initSquemaPuestos(db *gorm.DB) {
