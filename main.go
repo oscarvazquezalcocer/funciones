@@ -1,6 +1,7 @@
 package main
 
 import (
+	"itsva-puestos/config"
 	"itsva-puestos/models"
 	"itsva-puestos/routes"
 	"net/http"
@@ -28,6 +29,9 @@ func DatabaseMiddleware() gin.HandlerFunc {
 }
 
 func main() {
+
+	config.ConfigureViper()
+
 	db, err := gorm.Open(sqlite.Open(viper.GetString("db")), &gorm.Config{})
 	if err != nil {
 		panic("Error conexión a la base de datos")
