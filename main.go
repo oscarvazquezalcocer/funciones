@@ -59,6 +59,7 @@ func initSquemaPuestos(db *gorm.DB) {
 	rootPuesto := models.Puesto{
 		Nombre:      "Director",
 		Descripcion: "Encargado de Adminisitrar el Instituto Tecnologico Nacional Campus Valladolid",
+		Repetible:   false,
 		IDJefe:      0,
 	}
 
