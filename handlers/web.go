@@ -25,7 +25,6 @@ func List(c *gin.Context) {
 		}
 	}
 
-	fmt.Println(puestos)
 	c.HTML(http.StatusOK, "list.html", gin.H{"puestos": puestos, "nombresJefes": nombresJefes})
 }
 
@@ -102,6 +101,8 @@ func Update(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, "error.html", gin.H{"message": err.Error()})
 		return
 	}
+	fmt.Println(puesto.Repetible)
+
 	db.Save(&puesto)
 	c.Redirect(http.StatusSeeOther, "/")
 }

@@ -82,6 +82,7 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Repetible</th>
                     <th>Jefe</th>
                 </tr>
                 {{ range .puestos }}
@@ -89,6 +90,7 @@
                     <td>{{ .ID }}</td>
                     <td>{{ .Nombre }}</td>
                     <td>{{ .Descripcion }}</td>
+                    <td>{{ if .Repetible }} Si {{ else }} No {{ end }}</td>
                     <td>{{ index $.nombresJefes .IDJefe  }}</td>
                 </tr>
                 {{ end }}
