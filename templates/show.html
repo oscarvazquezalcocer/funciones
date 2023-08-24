@@ -76,7 +76,7 @@
         <label for="repetible">¿Es repetible?</label><br>
         <input type="checkbox" id="repetible" name="repetible" {{ if .puesto.Repetible }} checked {{ end }}><br><br>
         
-        <label for="id_puesto">Puesto:</label><br>
+        <label for="id_puesto">Jefe:</label><br>
         <select id="id_jefe" name="id_jefe" required>
             {{ if eq .puesto.ID 1 }}
             <option value="0" selected>No tiene Jefe</option>
@@ -84,6 +84,13 @@
                 {{ range .jefes }}
                 <option value="{{ .ID }}">{{ .Nombre }}</option>
                 {{ end }}
+            {{ end }}
+        </select><br>
+        
+        <label for="id_funcion">Funcion:</label><br>
+        <select id="id_funcion" name="id_funcion" required>
+            {{ range .funciones }}
+                <option value="{{ .ID }}">{{ .Nombre }}</option>
             {{ end }}
         </select><br>
 

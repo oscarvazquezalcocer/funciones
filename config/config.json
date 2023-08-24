@@ -1,5 +1,9 @@
 {
-
+	"api-funciones": {
+		"url": "http://localhost",
+        "port": ":8083",
+        "endpoint": "/api/"
+	},
     "db": "db.sqlite",
     "PORT": ":8082"
 }

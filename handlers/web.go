@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"itsva-puestos/models"
+	"itsva-puestos/services"
 	"itsva-puestos/utils"
 
 	"net/http"
@@ -25,15 +26,30 @@ func List(c *gin.Context) {
 		}
 	}
 
-	c.HTML(http.StatusOK, "list.html", gin.H{"puestos": puestos, "nombresJefes": nombresJefes})
+	puestosWithDetails, err := utils.GetPuestosWithDetails(puestos)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	fmt.Println(puestosWithDetails)
+	c.HTML(http.StatusOK, "list.html", gin.H{"puestos": puestosWithDetails, "nombresJefes": nombresJefes})
 }
 
 func ShowForm(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
+
+	funciones, err := services.GetListFuncionFromAPI()
+
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
 	var jefes []models.Puesto
 	db.Find(&jefes)
 
-	c.HTML(http.StatusOK, "create.html", gin.H{"jefes": jefes})
+	c.HTML(http.StatusOK, "create.html", gin.H{"jefes": jefes, "funciones": funciones})
 
 }
 
@@ -82,10 +98,17 @@ func Show(c *gin.Context) {
 
 	}
 
+	funciones, err := services.GetListFuncionFromAPI()
+
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
 	var jefes []models.Puesto
 	db.Find(&jefes)
 
-	c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puesto, "jefes": jefes})
+	c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puesto, "jefes": jefes, "funciones": funciones})
 }
 
 func Update(c *gin.Context) {

@@ -68,6 +68,13 @@
                 <option value="{{ .ID }}">{{ .Nombre }}</option>
             {{ end }}
         </select><br>
+
+        <label for="id_funcion">Funcion:</label><br>
+        <select id="id_funcion" name="id_funcion" required>
+            {{ range .funciones }}
+                <option value="{{ .ID }}">{{ .Nombre }}</option>
+            {{ end }}
+        </select><br>
         
         <input type="submit" value="Crear Puesto">
     </form>

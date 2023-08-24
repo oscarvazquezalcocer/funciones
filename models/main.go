@@ -8,4 +8,5 @@ type Puesto struct {
 	Descripcion string `json:"descripcion" form:"descripcion" binding:"required"`
 	Repetible   bool   `json:"repetible"   form:"repetible"`
 	IDJefe      uint   `json:"id_jefe"     form:"id_jefe" `
+	IDFuncion   uint   `json:"id_funcion"  form:"id_funcion"  binding:"required"`
 }
