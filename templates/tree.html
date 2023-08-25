@@ -49,7 +49,7 @@
     </ul>
 
     {{ define "treeNode" }}
-        <li>
+        <li onclick="window.location='/{{ .Puesto.ID }}';" style="cursor: pointer;">
             <span class="node-icon">{{ .Puesto.ID }}</span> {{ .Puesto.Nombre }}
         </li>
         {{ if .Subordinados }}

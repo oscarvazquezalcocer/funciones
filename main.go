@@ -57,10 +57,11 @@ func initSquemaPuestos(db *gorm.DB) {
 
 	// Crear el primer puesto raíz
 	rootPuesto := models.Puesto{
-		Nombre:      "Director",
-		Descripcion: "Encargado de Adminisitrar el Instituto Tecnologico Nacional Campus Valladolid",
-		Repetible:   false,
-		IDJefe:      0,
+		Nombre: "Director",
+		//Descripcion: "Encargado de Adminisitrar el Instituto Tecnologico Nacional Campus Valladolid",
+		//Repetible:   false,
+		IDFuncion: 4,
+		IDJefe:    0,
 	}
 
 	db.Create(&rootPuesto)

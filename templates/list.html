@@ -81,20 +81,20 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Descripción</th>
                     <th>Funcion</th>
-                    <th>Repetible</th>
                     <th>Jefe</th>
                 </tr>
                 {{ range .puestos }}
-                <tr onclick="window.location='/{{ .ID }}';">
-                    <td>{{ .ID }}</td>
-                    <td>{{ .Nombre }}</td>
-                    <td>{{ .Descripcion }}</td>
-                    <td>{{ .NombreFuncion }}</td>
-                    <td>{{ if .Repetible }} Si {{ else }} No {{ end }}</td>
-                    <td>{{ index $.nombresJefes .IDJefe  }}</td>
-                </tr>
+                    {{ if eq .ID 1 }}
+                        <tr>
+                    {{ else }}
+                        <tr onclick="window.location='/{{ .ID }}';">
+                    {{ end }}
+                        <td>{{ .ID }}</td>
+                        <td>{{ .Nombre }}</td>
+                        <td>{{ .NombreFuncion }}</td>
+                        <td>{{ index $.nombresJefes .IDJefe  }}</td>
+                    </tr>
                 {{ end }}
             </table>
         </div>

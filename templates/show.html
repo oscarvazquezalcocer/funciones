@@ -70,32 +70,31 @@
         <label for="nombre">Nombre:</label><br>
         <input type="text" id="nombre" name="nombre" value="{{ .puesto.Nombre }}" required><br>
         
-        <label for="descripcion">Descripción:</label><br>
-        <textarea id="descripcion" name="descripcion" rows="4" cols="50" required>{{ .puesto.Descripcion }}</textarea><br>
-        
-        <label for="repetible">¿Es repetible?</label><br>
-        <input type="checkbox" id="repetible" name="repetible" {{ if .puesto.Repetible }} checked {{ end }}><br><br>
-        
-        <label for="id_puesto">Jefe:</label><br>
-        <select id="id_jefe" name="id_jefe" required>
-            {{ if eq .puesto.ID 1 }}
-            <option value="0" selected>No tiene Jefe</option>
-            {{ else }}
-                {{ range .jefes }}
-                <option value="{{ .ID }}">{{ .Nombre }}</option>
-                {{ end }}
-            {{ end }}
-        </select><br>
-        
         <label for="id_funcion">Funcion:</label><br>
         <select id="id_funcion" name="id_funcion" required>
+            {{ $IDFuncion := .puesto.IDFuncion}}
             {{ range .funciones }}
-                <option value="{{ .ID }}">{{ .Nombre }}</option>
+                <option value="{{ .ID }}" {{ if eq .ID $IDFuncion}} selected {{ end }}>{{ .Nombre }}</option>
             {{ end }}
         </select><br>
 
+        <label for="id_puesto">Jefe:</label><br>
+        <select id="id_jefe" name="id_jefe" required>
+           
+            {{ $IDJefe := .puesto.IDJefe }}
+            {{ range .jefes }}
+            <option value="{{ .ID }}" {{ if eq .ID $IDJefe}} selected {{ end }} >{{ .Nombre }}</option>
+            {{ end }}
+            
+        </select><br>
+        
+
+
         <input type="submit" value="Actualizar Puesto">
     </form>
+    <!-- <form action="http://localhost:8083/{{ $IDFuncion }}" method="get">
+        <input type="submit" value="Detalle Funcion">
+    </form> -->
     <form action="/{{ .puesto.ID }}/delete" method="post">
         <input  type="hidden" name="_method" value="DELETE">
         <button class="delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar este puesto?')">Eliminar Puesto</button>

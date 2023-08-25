@@ -55,11 +55,13 @@
         <label for="nombre">Nombre:</label><br>
         <input type="text" id="nombre" name="nombre" required><br>
         
-        <label for="descripcion">Descripción:</label><br>
-        <textarea id="descripcion" name="descripcion" rows="4" cols="50" required></textarea><br>
-        
-        <label for="repetible">¿Es repetible?</label><br>
-        <input type="checkbox" id="repetible" name="repetible" value="true" ><br><br>
+
+        <label for="id_funcion">Funcion:</label><br>
+        <select id="id_funcion" name="id_funcion" required>
+            {{ range .funciones }}
+                <option value="{{ .ID }}">{{ .Nombre }}</option>
+            {{ end }}
+        </select><br>
         
 
         <label for="id_jefe">Jefe:</label><br>
@@ -69,13 +71,6 @@
             {{ end }}
         </select><br>
 
-        <label for="id_funcion">Funcion:</label><br>
-        <select id="id_funcion" name="id_funcion" required>
-            {{ range .funciones }}
-                <option value="{{ .ID }}">{{ .Nombre }}</option>
-            {{ end }}
-        </select><br>
-        
         <input type="submit" value="Crear Puesto">
     </form>
 </body>

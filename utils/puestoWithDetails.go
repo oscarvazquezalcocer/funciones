@@ -32,8 +32,7 @@ func GetPuestoWithDetails(puesto models.Puesto) (models.PuestoWithDetails, error
 		ID: puesto.ID,
 
 		Nombre:        puesto.Nombre,
-		Descripcion:   puesto.Descripcion,
-		Repetible:     puesto.Repetible,
+		IDFuncion:     puesto.IDFuncion,
 		IDJefe:        puesto.IDJefe,
 		NombreFuncion: funcion.Nombre,
 	}

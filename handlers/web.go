@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"itsva-puestos/models"
 	"itsva-puestos/services"
 	"itsva-puestos/utils"
@@ -32,7 +31,6 @@ func List(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	fmt.Println(puestosWithDetails)
 	c.HTML(http.StatusOK, "list.html", gin.H{"puestos": puestosWithDetails, "nombresJefes": nombresJefes})
 }
 
@@ -91,13 +89,6 @@ func Show(c *gin.Context) {
 		return
 	}
 
-	// Si es el director no enviamos a los jefes
-	if puesto.ID == 1 {
-		c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puesto})
-		return
-
-	}
-
 	funciones, err := services.GetListFuncionFromAPI()
 
 	if err != nil {
@@ -108,7 +99,13 @@ func Show(c *gin.Context) {
 	var jefes []models.Puesto
 	db.Find(&jefes)
 
-	c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puesto, "jefes": jefes, "funciones": funciones})
+	puestoWithDetails, err := utils.GetPuestoWithDetails(puesto)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puestoWithDetails, "jefes": jefes, "funciones": funciones})
 }
 
 func Update(c *gin.Context) {
@@ -124,7 +121,6 @@ func Update(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, "error.html", gin.H{"message": err.Error()})
 		return
 	}
-	fmt.Println(puesto.Repetible)
 
 	db.Save(&puesto)
 	c.Redirect(http.StatusSeeOther, "/")
