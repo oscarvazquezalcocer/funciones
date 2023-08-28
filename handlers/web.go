@@ -144,8 +144,13 @@ func TreeView(c *gin.Context) {
 	var puestos []models.Puesto
 	db.Find(&puestos)
 
-	topLevel := utils.RenderTree(puestos, 0) // 0 representa el jefe raíz
+	users, err := services.GetListUserFromAPI()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
 
-	//c.JSON(http.StatusOK, gin.H{"tree": topLevel})
+	topLevel := utils.RenderTree(puestos, users, 0) // 0 representa el jefe raíz
+
+	//c.JSON(http.StatusOK, gin.H{"tree": topLevel, "users": users})
 	c.HTML(http.StatusOK, "tree.html", gin.H{"tree": topLevel})
 }

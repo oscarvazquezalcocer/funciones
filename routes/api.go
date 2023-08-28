@@ -12,6 +12,7 @@ func AddAPI(r *gin.Engine) {
 	{
 		api.GET("/", handlers.ListAPI)
 		api.GET("/:id", handlers.ShowAPI)
+		api.GET("/tree", handlers.TreeAPI)
 
 	}
 

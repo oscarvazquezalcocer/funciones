@@ -47,10 +47,9 @@
             {{ template "treeNode" . }}
         {{ end }}
     </ul>
-
     {{ define "treeNode" }}
         <li onclick="window.location='/{{ .Puesto.ID }}';" style="cursor: pointer;">
-            <span class="node-icon">{{ .Puesto.ID }}</span> {{ .Puesto.Nombre }}
+            <span class="node-icon">{{ .Puesto.ID }}</span> {{ .Puesto.Nombre }} ({{ .User.Username }})
         </li>
         {{ if .Subordinados }}
             <ul class="tree-node">

@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"itsva-puestos/models"
+	"itsva-puestos/services"
+	"itsva-puestos/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -26,4 +28,19 @@ func ShowAPI(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"puesto": puesto})
+}
+
+func TreeAPI(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var puestos []models.Puesto
+	db.Find(&puestos)
+
+	users, err := services.GetListUserFromAPI()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	topLevel := utils.RenderTree(puestos, users, 0) // 0 representa el jefe raíz
+
+	c.JSON(http.StatusOK, gin.H{"tree": topLevel})
 }

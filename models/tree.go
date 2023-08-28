@@ -1,6 +1,7 @@
 package models
 
-type PuestoTree struct {
+type Tree struct {
 	Puesto       Puesto
-	Subordinados []PuestoTree
+	User         UserAPI
+	Subordinados []Tree
 }
