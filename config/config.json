@@ -5,7 +5,7 @@
     "endpoint": "/api/"
     },
 
-	"api-funciones": {
+	"api-puestos": {
 		"url": "http://localhost",
         "port": ":8083",
         "endpoint": "/api/"

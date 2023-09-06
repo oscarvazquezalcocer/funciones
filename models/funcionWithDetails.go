@@ -1,10 +1,10 @@
 package models
 
-type PuestoWithDetails struct {
+type FuncionWithDetails struct {
 	ID            uint
 	Nombre        string
-	IDFuncion     uint
-	NombreFuncion string
+	IDPuesto      uint
+	NombrePuesto  string
 	IDUsuario     uint
 	NombreUsuario string
 	IDJefe        uint

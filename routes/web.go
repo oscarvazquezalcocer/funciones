@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"itsva-puestos/handlers"
+	"funciones/handlers"
 
 	"github.com/gin-gonic/gin"
 )

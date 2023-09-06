@@ -1,9 +1,9 @@
 package main
 
 import (
-	"itsva-puestos/config"
-	"itsva-puestos/models"
-	"itsva-puestos/routes"
+	"funciones/config"
+	"funciones/models"
+	"funciones/routes"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -38,10 +38,10 @@ func main() {
 	}
 
 	// Realizar las migraciones antes de iniciar el servidor
-	db.AutoMigrate(&models.Puesto{})
+	db.AutoMigrate(&models.Funcion{})
 
-	//Agregamos al Director antes que nada
-	initSquemaPuestos(db)
+	// //Agregamos al Director antes que nada
+	// initSquemaPuestos(db)
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
@@ -53,16 +53,16 @@ func main() {
 	r.Run(viper.GetString("PORT"))
 }
 
-func initSquemaPuestos(db *gorm.DB) {
+// func initSquemaPuestos(db *gorm.DB) {
 
-	// Crear el primer puesto raíz
-	rootPuesto := models.Puesto{
-		Nombre: "Director",
-		//Descripcion: "Encargado de Adminisitrar el Instituto Tecnologico Nacional Campus Valladolid",
-		IDFuncion: 4,
-		IDJefe:    0,
-	}
+// 	// Crear el primer puesto raíz
+// 	rootPuesto := models.Puesto{
+// 		Nombre: "Director",
+// 		//Descripcion: "Encargado de Adminisitrar el Instituto Tecnologico Nacional Campus Valladolid",
+// 		IDFuncion: 4,
+// 		IDJefe:    0,
+// 	}
 
-	db.Create(&rootPuesto)
+// 	db.Create(&rootPuesto)
 
-}
+// }

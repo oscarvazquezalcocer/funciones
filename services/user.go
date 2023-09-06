@@ -2,7 +2,8 @@ package services
 
 import (
 	"encoding/json"
-	"itsva-puestos/models"
+	"funciones/models"
+
 	"net/http"
 	"strconv"
 

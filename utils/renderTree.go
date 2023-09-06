@@ -1,17 +1,15 @@
 package utils
 
-import (
-	"itsva-puestos/models"
-)
+import "funciones/models"
 
-func RenderTree(puestos []models.PuestoWithDetails, jefeID uint) []models.Tree {
+func RenderTree(puestos []models.FuncionWithDetails, jefeID uint) []models.Tree {
 
 	var tree []models.Tree
 	for _, puesto := range puestos {
 		if puesto.IDJefe == jefeID {
 			subordinados := RenderTree(puestos, puesto.ID)
 			tree = append(tree, models.Tree{
-				Puesto:       puesto,
+				Funcion:      puesto,
 				Subordinados: subordinados,
 			})
 		}

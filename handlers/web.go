@@ -1,10 +1,9 @@
 package handlers
 
 import (
-	"itsva-puestos/models"
-	"itsva-puestos/services"
-	"itsva-puestos/utils"
-
+	"funciones/models"
+	"funciones/services"
+	"funciones/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,31 +12,31 @@ import (
 
 func List(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
-	var puestos []models.Puesto
+	var puestos []models.Funcion
 	db.Find(&puestos)
 
 	var nombresJefes = make(map[uint]string)
 	for _, puesto := range puestos {
 		if puesto.IDJefe != 0 {
-			var puestoPadre models.Puesto
+			var puestoPadre models.Funcion
 			db.First(&puestoPadre, puesto.IDJefe)
 			nombresJefes[puesto.IDJefe] = puestoPadre.Nombre
 		}
 	}
 
-	puestosWithDetails, err := utils.GetPuestosWithDetails(puestos)
+	funcionesWithDetails, err := utils.GetFuncionesWithDetails(puestos)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	c.HTML(http.StatusOK, "list.html", gin.H{"puestos": puestosWithDetails, "nombresJefes": nombresJefes})
+	c.HTML(http.StatusOK, "list.html", gin.H{"funciones": funcionesWithDetails, "nombresJefes": nombresJefes})
 }
 
 func ShowForm(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 
-	funciones, err := services.GetListFuncionFromAPI()
+	puestos, err := services.GetListPuestoFromAPI()
 
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
@@ -51,17 +50,17 @@ func ShowForm(c *gin.Context) {
 		return
 	}
 
-	var jefes []models.Puesto
+	var jefes []models.Funcion
 	db.Find(&jefes)
 
-	c.HTML(http.StatusOK, "create.html", gin.H{"jefes": jefes, "funciones": funciones, "users": users})
+	c.HTML(http.StatusOK, "create.html", gin.H{"jefes": jefes, "puestos": puestos, "users": users})
 
 }
 
 func Create(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 
-	var newPuesto models.Puesto
+	var newPuesto models.Funcion
 	if err := c.ShouldBind(&newPuesto); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -69,7 +68,7 @@ func Create(c *gin.Context) {
 
 	// Checamos que el puesto que se reciba sea valido
 	if newPuesto.IDJefe != 0 {
-		var parent models.Puesto
+		var parent models.Funcion
 		result := db.First(&parent, newPuesto.IDJefe)
 		if result.Error != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "ParentID no válido"})
@@ -89,14 +88,14 @@ func Create(c *gin.Context) {
 func Show(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
-	var puesto models.Puesto
+	var puesto models.Funcion
 	result := db.First(&puesto, id)
 	if result.Error != nil {
 		c.HTML(http.StatusNotFound, "error.html", gin.H{"message": "Puesto no encontrado"})
 		return
 	}
 
-	funciones, err := services.GetListFuncionFromAPI()
+	puestos, err := services.GetListPuestoFromAPI()
 
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
@@ -110,22 +109,22 @@ func Show(c *gin.Context) {
 		return
 	}
 
-	var jefes []models.Puesto
+	var jefes []models.Funcion
 	db.Find(&jefes)
 
-	puestoWithDetails, err := utils.GetPuestoWithDetails(puesto)
+	funcionesWithDetails, err := utils.GetFuncionWithDetails(puesto)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puestoWithDetails, "jefes": jefes, "funciones": funciones, "users": users})
+	c.HTML(http.StatusOK, "show.html", gin.H{"funcion": funcionesWithDetails, "jefes": jefes, "puestos": puestos, "users": users})
 }
 
 func Update(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
-	var puesto models.Puesto
+	var puesto models.Funcion
 	result := db.First(&puesto, id)
 	if result.Error != nil {
 		c.HTML(http.StatusNotFound, "error.html", gin.H{"message": "Puesto no encontrado"})
@@ -143,22 +142,22 @@ func Update(c *gin.Context) {
 func Delete(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
-	var puesto models.Puesto
+	var puesto models.Funcion
 	result := db.First(&puesto, id)
 	if result.Error != nil {
 		c.HTML(http.StatusNotFound, "error.html", gin.H{"message": "Puesto no encontrado"})
 		return
 	}
-	db.Delete(&puesto)
+	db.Unscoped().Delete(&puesto)
 	c.Redirect(http.StatusSeeOther, "/")
 }
 
 func TreeView(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
-	var puestos []models.Puesto
+	var puestos []models.Funcion
 	db.Find(&puestos)
 
-	puestosWithDetails, err := utils.GetPuestosWithDetails(puestos)
+	puestosWithDetails, err := utils.GetFuncionesWithDetails(puestos)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())

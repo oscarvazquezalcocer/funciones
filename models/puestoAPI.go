@@ -1,6 +1,6 @@
 package models
 
-type FuncionAPI struct {
+type PuestoAPI struct {
 	ID     uint   `json:"ID"`
 	Nombre string `json:"nombre"`
 }

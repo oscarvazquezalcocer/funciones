@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Editar Puesto</title>
+    <title>Editar Funcion</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,22 +65,23 @@
     </style>
 </head>
 <body>
-    <h1>Editar Puesto</h1>
+    <h1>Editar Funcion</h1>
     <form action="/{{ .puesto.ID }}/update" method="post">
         <label for="nombre">Nombre:</label><br>
         <input type="text" id="nombre" name="nombre" value="{{ .puesto.Nombre }}" required><br>
         
-        <label for="id_funcion">Funcion:</label><br>
-        <select id="id_funcion" name="id_funcion" required>
-            {{ $IDFuncion := .puesto.IDFuncion}}
-            {{ range .funciones }}
-                <option value="{{ .ID }}" {{ if eq .ID $IDFuncion}} selected {{ end }}>{{ .Nombre }}</option>
+        <label for="id_puesto">Puesto:</label><br>
+        <select id="id_puesto" name="id_puesto" required>
+            {{ $IDPuesto := .puesto.IDPuesto}}
+            {{ range .puestos }}
+                <option value="{{ .ID }}" {{ if eq .ID $IDPuesto }} selected {{ end }}>{{ .Nombre }}</option>
             {{ end }}
         </select><br>
 
         <label for="id_user">Usuario:</label><br>
         <select id="id_user" name="id_user" required>
             {{ $IDUsuario := .puesto.IDUsuario}}
+                <option value="0" >No Asignado</option>
             {{ range .users }}
                 <option value="{{ .ID }}" {{ if eq .ID $IDUsuario}} selected {{ end }}>{{ .Nombre }}</option>
             {{ end }}
@@ -88,10 +89,10 @@
 
         <label for="id_puesto">Jefe:</label><br>
         <select id="id_jefe" name="id_jefe" required>
-           
             {{ $IDJefe := .puesto.IDJefe }}
+                <option value="0" >Sin Jefe</option>
             {{ range .jefes }}
-            <option value="{{ .ID }}" {{ if eq .ID $IDJefe}} selected {{ end }} >{{ .Nombre }}</option>
+                <option value="{{ .ID }}" {{ if eq .ID $IDJefe}} selected {{ end }} >{{ .Nombre }}</option>
             {{ end }}
             
         </select><br>
@@ -100,12 +101,10 @@
 
         <input type="submit" value="Actualizar Puesto">
     </form>
-    <!-- <form action="http://localhost:8083/{{ $IDFuncion }}" method="get">
-        <input type="submit" value="Detalle Funcion">
-    </form> -->
+
     <form action="/{{ .puesto.ID }}/delete" method="post">
         <input  type="hidden" name="_method" value="DELETE">
-        <button class="delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar este puesto?')">Eliminar Puesto</button>
+        <button class="delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar esta funcion?')">Eliminar Funcion</button>
     </form>
 </body>
 </html>

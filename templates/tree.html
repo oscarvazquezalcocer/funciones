@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Árbol de Puestos</title>
+    <title>Árbol de Funciones</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,15 +41,15 @@
     </style>
 </head>
 <body>
-    <h1>Árbol de Puestos</h1>
+    <h1>Árbol de Funciones</h1>
     <ul>
         {{ range .tree }}
             {{ template "treeNode" . }}
         {{ end }}
     </ul>
     {{ define "treeNode" }}
-        <li onclick="window.location='/{{ .Puesto.ID }}';" style="cursor: pointer;">
-            <span class="node-icon">{{ .Puesto.ID }}</span> {{ .Puesto.Nombre }} ({{ .Puesto.NombreUsuario }})
+        <li onclick="window.location='/{{ .Funcion.ID }}';" style="cursor: pointer;">
+            <span class="node-icon">{{ .Funcion.ID }}</span> {{ .Funcion.Nombre }} ({{ .Funcion.NombreUsuario }})
         </li>
         {{ if .Subordinados }}
             <ul class="tree-node">

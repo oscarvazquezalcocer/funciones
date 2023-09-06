@@ -1,6 +1,6 @@
 package models
 
 type Tree struct {
-	Puesto       PuestoWithDetails
+	Funcion      FuncionWithDetails
 	Subordinados []Tree
 }

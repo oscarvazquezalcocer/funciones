@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Crear Puesto</title>
+    <title>Crear Funcion</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,21 +50,22 @@
     </style>
 </head>
 <body>
-    <h1>Crear Nuevo Puesto</h1>
+    <h1>Crear Nueva Funcion</h1>
     <form action="/create" method="post">
         <label for="nombre">Nombre:</label><br>
         <input type="text" id="nombre" name="nombre" required><br>
         
 
-        <label for="id_funcion">Funcion:</label><br>
-        <select id="id_funcion" name="id_funcion" required>
-            {{ range .funciones }}
+        <label for="id_puesto">Puesto:</label><br>
+        <select id="id_puesto" name="id_puesto" required>
+            {{ range .puestos }}
                 <option value="{{ .ID }}">{{ .Nombre }}</option>
             {{ end }}
         </select><br>
         
         <label for="id_user">Usuario:</label><br>
         <select id="id_user" name="id_user" required>
+                <option value="0" >No Asignado</option>
             {{ range .users }}
                 <option value="{{ .ID }}">{{ .Nombre }}</option>
             {{ end }}
@@ -72,12 +73,13 @@
 
         <label for="id_jefe">Jefe:</label><br>
         <select id="id_jefe" name="id_jefe" required>
+                <option value="0" >Sin Jefe</option>
             {{ range .jefes }}
                 <option value="{{ .ID }}">{{ .Nombre }}</option>
             {{ end }}
         </select><br>
 
-        <input type="submit" value="Crear Puesto">
+        <input type="submit" value="Crear Funcion">
     </form>
 </body>
 </html>

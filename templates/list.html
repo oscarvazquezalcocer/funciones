@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Listado de Puestos</title>
+    <title>Listado de Funciones</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,26 +70,26 @@
     </style>
 </head>
 <body>
-    <h1>Listado de Puestos</h1>
+    <h1>Listado de Funciones</h1>
     <div class="content-container">
         <div class="buttons-container">
-            <a href="/create" class="create-button">Crear Nuevo Puesto</a>
-            <a href="/tree" class="create-button">Mostrar Arbol de Puestos</a>
+            <a href="/create" class="create-button">Crear Nueva Funcion</a>
+            <a href="/tree" class="create-button">Mostrar Arbol de Funciones</a>
         </div>
         <div class="table-container">
             <table>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Funcion</th>
+                    <th>Puesto</th>
                     <th>Usuario</th>
                     <th>Jefe</th>
                 </tr>
-                {{ range .puestos }}  
+                {{ range .funciones }}  
                     <tr onclick="window.location='/{{ .ID }}';">
                         <td>{{ .ID }}</td>
                         <td>{{ .Nombre }}</td>
-                        <td>{{ .NombreFuncion }}</td>
+                        <td>{{ .NombrePuesto }}</td>
                         <td>{{ .NombreUsuario }}</td>
                         <td>{{ index $.nombresJefes .IDJefe  }}</td>
                     </tr>
