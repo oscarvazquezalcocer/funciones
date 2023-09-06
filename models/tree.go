@@ -1,7 +1,6 @@
 package models
 
 type Tree struct {
-	Puesto       Puesto
-	User         UserAPI
+	Puesto       PuestoWithDetails
 	Subordinados []Tree
 }

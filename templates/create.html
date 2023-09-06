@@ -63,6 +63,12 @@
             {{ end }}
         </select><br>
         
+        <label for="id_user">Usuario:</label><br>
+        <select id="id_user" name="id_user" required>
+            {{ range .users }}
+                <option value="{{ .ID }}">{{ .Nombre }}</option>
+            {{ end }}
+        </select><br>
 
         <label for="id_jefe">Jefe:</label><br>
         <select id="id_jefe" name="id_jefe" required>

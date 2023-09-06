@@ -28,13 +28,20 @@ func GetPuestoWithDetails(puesto models.Puesto) (models.PuestoWithDetails, error
 		return models.PuestoWithDetails{}, err
 	}
 
+	user, err := services.GetUserFromIdAPI(puesto.IDUsuario)
+	if err != nil {
+		return models.PuestoWithDetails{}, err
+	}
+
 	puestoWithDetails := models.PuestoWithDetails{
 		ID: puesto.ID,
 
 		Nombre:        puesto.Nombre,
 		IDFuncion:     puesto.IDFuncion,
-		IDJefe:        puesto.IDJefe,
 		NombreFuncion: funcion.Nombre,
+		IDUsuario:     puesto.IDUsuario,
+		NombreUsuario: user.Nombre,
+		IDJefe:        puesto.IDJefe,
 	}
 
 	return puestoWithDetails, nil

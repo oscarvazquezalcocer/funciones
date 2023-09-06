@@ -78,6 +78,14 @@
             {{ end }}
         </select><br>
 
+        <label for="id_user">Usuario:</label><br>
+        <select id="id_user" name="id_user" required>
+            {{ $IDUsuario := .puesto.IDUsuario}}
+            {{ range .users }}
+                <option value="{{ .ID }}" {{ if eq .ID $IDUsuario}} selected {{ end }}>{{ .Nombre }}</option>
+            {{ end }}
+        </select><br>
+
         <label for="id_puesto">Jefe:</label><br>
         <select id="id_jefe" name="id_jefe" required>
            

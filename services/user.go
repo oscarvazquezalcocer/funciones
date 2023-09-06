@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func GetListUserFromAPI() ([]models.UserAPI, error) {
+func GetListUserFromAPI() ([]models.User, error) {
 
 	apiUrl := viper.GetString("api-users.url")
 	apiPort := viper.GetString("api-users.port")
@@ -22,7 +22,7 @@ func GetListUserFromAPI() ([]models.UserAPI, error) {
 	defer resp.Body.Close()
 
 	var responseData struct {
-		Users []models.UserAPI `json:"users"`
+		Users []models.User `json:"users"`
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&responseData); err != nil {
@@ -31,7 +31,7 @@ func GetListUserFromAPI() ([]models.UserAPI, error) {
 	return responseData.Users, nil
 }
 
-func GetUserFromIdAPI(id_user uint) (models.UserAPI, error) {
+func GetUserFromIdAPI(id_user uint) (models.User, error) {
 
 	apiUrl := viper.GetString("api-users.url")
 	apiPort := viper.GetString("api-users.port")
@@ -41,16 +41,16 @@ func GetUserFromIdAPI(id_user uint) (models.UserAPI, error) {
 
 	resp, err := http.Get(apiUrl + apiPort + apiEndpoint + id_user_string)
 	if err != nil {
-		return models.UserAPI{}, err
+		return models.User{}, err
 	}
 	defer resp.Body.Close()
 
 	var responseData struct {
-		User models.UserAPI `json:"user"`
+		User models.User `json:"user"`
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&responseData); err != nil {
-		return models.UserAPI{}, err
+		return models.User{}, err
 	}
 
 	return responseData.User, nil

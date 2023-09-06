@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"itsva-puestos/models"
-	"itsva-puestos/services"
 	"itsva-puestos/utils"
 	"net/http"
 
@@ -35,12 +34,13 @@ func TreeAPI(c *gin.Context) {
 	var puestos []models.Puesto
 	db.Find(&puestos)
 
-	users, err := services.GetListUserFromAPI()
+	puestosWithDetails, err := utils.GetPuestosWithDetails(puestos)
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	topLevel := utils.RenderTree(puestos, users, 0) // 0 representa el jefe raíz
+	topLevel := utils.RenderTree(puestosWithDetails, 0) // 0 representa el jefe raíz
 
 	c.JSON(http.StatusOK, gin.H{"tree": topLevel})
 }

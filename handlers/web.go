@@ -44,10 +44,17 @@ func ShowForm(c *gin.Context) {
 		return
 	}
 
+	users, err := services.GetListUserFromAPI()
+
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
 	var jefes []models.Puesto
 	db.Find(&jefes)
 
-	c.HTML(http.StatusOK, "create.html", gin.H{"jefes": jefes, "funciones": funciones})
+	c.HTML(http.StatusOK, "create.html", gin.H{"jefes": jefes, "funciones": funciones, "users": users})
 
 }
 
@@ -96,6 +103,13 @@ func Show(c *gin.Context) {
 		return
 	}
 
+	users, err := services.GetListUserFromAPI()
+
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
 	var jefes []models.Puesto
 	db.Find(&jefes)
 
@@ -105,7 +119,7 @@ func Show(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puestoWithDetails, "jefes": jefes, "funciones": funciones})
+	c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puestoWithDetails, "jefes": jefes, "funciones": funciones, "users": users})
 }
 
 func Update(c *gin.Context) {
@@ -144,12 +158,13 @@ func TreeView(c *gin.Context) {
 	var puestos []models.Puesto
 	db.Find(&puestos)
 
-	users, err := services.GetListUserFromAPI()
+	puestosWithDetails, err := utils.GetPuestosWithDetails(puestos)
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	topLevel := utils.RenderTree(puestos, users, 0) // 0 representa el jefe raíz
+	topLevel := utils.RenderTree(puestosWithDetails, 0) // 0 representa el jefe raíz
 
 	//c.JSON(http.StatusOK, gin.H{"tree": topLevel, "users": users})
 	c.HTML(http.StatusOK, "tree.html", gin.H{"tree": topLevel})
